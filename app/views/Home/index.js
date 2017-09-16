@@ -1,6 +1,5 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag';
+import { gql, graphql } from 'react-apollo'
 import {
   Link,
 } from 'react-router-dom'
@@ -17,19 +16,31 @@ const AllUsers = gql`
 
 class Home extends React.PureComponent {
   render() {
-    const { allUsers } = this.props.data
-    const users =
-      allUsers
-      .map(u => <li>{u.firstName} {u.lastName}</li>)
-    return (
-      <div>
-        <p>Home Component</p>
-        <Link to="about">
-          Link to about
-        </Link>
-        <ul>{users}</ul>
-      </div>
-    )
+    let { data } = this.props
+    if(data.loading){
+      return (<p>loading...</p>)
+    } else {
+      let { allUsers } = data
+      let users =
+        allUsers
+        .map((u, i) => <li key={i}><Link to={`/show/${u.id}`}>{u.firstName} {u.lastName}</Link></li>)
+      return (
+        <div>
+          <p>Home Component</p>
+          <p>
+            <Link to="about">
+              Link to about
+            </Link>
+          </p>
+          <p>
+            <Link to="create">
+              Create new user
+            </Link>
+          </p>
+          <ul>{users}</ul>
+        </div>
+      )
+    }
   }
 }
 

@@ -35,7 +35,7 @@ const middlewares = [
   thunk,
   routerMiddleware(browserHistory),
   client.middleware(),
-  tracker,
+  tracker
 ]
 
 /* middlewares to use in dev and staging */
@@ -59,7 +59,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares)
 
 const Store = createStore(
   AllReducers,
-  {},
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   appliedMiddlewares,
 )
 
