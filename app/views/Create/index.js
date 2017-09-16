@@ -18,11 +18,11 @@ const CreateUser = gql`
 
 class Create extends React.PureComponent {
   createUser() {
-    let { history, resetForm } = this.props
+    let { history, resetForm, firstName, lastName } = this.props
     this.props.mutate({
       variables: {
-        firstName: this.props.firstName,
-        lastName: this.props.lastName
+        firstName: firstName,
+        lastName: lastName
       }
     })
       .then(({ data }) => {
