@@ -18,7 +18,7 @@ const CreateUser = gql`
 
 class Create extends React.PureComponent {
   createUser() {
-    let { history } = this.props
+    let { history, resetForm } = this.props
     this.props.mutate({
       variables: {
         firstName: this.props.firstName,
@@ -27,6 +27,7 @@ class Create extends React.PureComponent {
     })
       .then(({ data }) => {
         history.push(`/show/${data.createUser.id}`)
+        resetForm()
       })
       .catch(error => {
         console.log("error", error)
